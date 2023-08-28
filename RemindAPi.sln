@@ -6,6 +6,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Remind.Core", "Remind.Core\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Remind.Data", "Remind.Data\Remind.Data.csproj", "{435F7B38-C664-4A44-93BF-0F125DF66C3D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Remind.Services", "Remind.Services\Remind.Services.csproj", "{4156A3A4-A353-41A2-BB67-D02FB2F12CD6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,5 +26,9 @@ Global
 		{435F7B38-C664-4A44-93BF-0F125DF66C3D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{435F7B38-C664-4A44-93BF-0F125DF66C3D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{435F7B38-C664-4A44-93BF-0F125DF66C3D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4156A3A4-A353-41A2-BB67-D02FB2F12CD6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4156A3A4-A353-41A2-BB67-D02FB2F12CD6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4156A3A4-A353-41A2-BB67-D02FB2F12CD6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4156A3A4-A353-41A2-BB67-D02FB2F12CD6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
