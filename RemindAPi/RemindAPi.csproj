@@ -19,4 +19,10 @@
     </ItemGroup>
 
 
+    <ItemGroup>
+      <ProjectReference Include="..\Remind.Core\Remind.Core.csproj" />
+      <ProjectReference Include="..\Remind.Data\Remind.Data.csproj" />
+      <ProjectReference Include="..\Remind.Services\Remind.Services.csproj" />
+    </ItemGroup>
+
 </Project>
