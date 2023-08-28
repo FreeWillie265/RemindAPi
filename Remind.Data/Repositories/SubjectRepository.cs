@@ -8,4 +8,5 @@ public class SubjectRepository : Repository<Subject>, ISubjectRepository
     public SubjectRepository(SubjectDbContext context) : base(context)
     {}
     
+    private SubjectDbContext SubjectDbContext { get {return Context as SubjectDbContext;}}
 }
