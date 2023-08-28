@@ -1,4 +1,4 @@
-﻿namespace RemindAPi.Models;
+﻿namespace Remind.Core.Models;
 
 public class Subject
 {
