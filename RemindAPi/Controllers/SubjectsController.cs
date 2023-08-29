@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Remind.Core.Models;
+using Remind.Core.Services;
 
 namespace RemindAPi.Controllers
 {
@@ -11,6 +13,12 @@ namespace RemindAPi.Controllers
     [ApiController]
     public class SubjectsController : ControllerBase
     {
+        private readonly ISubjectService _service;
+        public SubjectsController(ISubjectService service)
+        {
+            _service = service;
+        }
+        
         // GET: api/Subjects
         [HttpGet]
         public IEnumerable<string> Get()
