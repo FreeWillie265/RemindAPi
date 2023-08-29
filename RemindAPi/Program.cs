@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using Remind.Core.Repositories;
 using Remind.Data;
 
@@ -11,6 +12,9 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+builder.Services.AddDbContext<SubjectDbContext>(options =>
+    options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection"), x 
+    => x.MigrationsAssembly("Remind.Data")));
 
 var app = builder.Build();
 
