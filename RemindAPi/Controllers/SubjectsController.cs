@@ -21,9 +21,10 @@ namespace RemindAPi.Controllers
         
         // GET: api/Subjects
         [HttpGet]
-        public IEnumerable<string> Get()
+        public async Task<ActionResult<IEnumerable<Subject>>> Get()
         {
-            return new string[] { "value1", "value2" };
+            var subjects = await _service.GetAll();
+            return Ok(subjects);
         }
 
         // GET: api/Subjects/5
