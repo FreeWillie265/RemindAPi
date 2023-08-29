@@ -2,10 +2,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Remind.Core.Models;
 using Remind.Core.Services;
+using RemindAPi.Resources;
 
 namespace RemindAPi.Controllers
 {
@@ -14,9 +16,11 @@ namespace RemindAPi.Controllers
     public class SubjectsController : ControllerBase
     {
         private readonly ISubjectService _service;
-        public SubjectsController(ISubjectService service)
+        private readonly IMapper _mapper;
+        public SubjectsController(ISubjectService service, IMapper mapper)
         {
             _service = service;
+            _mapper = mapper;
         }
         
         // GET: api/Subjects
@@ -35,22 +39,33 @@ namespace RemindAPi.Controllers
             return Ok(subject);
         }
 
-        // POST: api/Subjects
+        /*// POST: api/Subjects
         [HttpPost]
         public void Post([FromBody] string value)
         {
-        }
+        }*/
 
         // PUT: api/Subjects/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public async Task<ActionResult<Subject>> Put(Guid id, [FromBody] SaveSubjectResource resource)
         {
+            var subject = await _service.GetById(id);
+            if (subject == null)
+                return NotFound();
+
+            var updates = _mapper.Map<SaveSubjectResource, Subject>(resource);
+
+            await _service.UpdateSubject(subject, updates);
+
+            var updatedSubject = await _service.GetById(id);
+
+            return Ok(updatedSubject);
         }
 
-        // DELETE: api/Subjects/5
+        /*// DELETE: api/Subjects/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
-        }
+        }*/
     }
 }
