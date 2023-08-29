@@ -19,6 +19,7 @@ builder.Services.AddDbContext<SubjectDbContext>(options =>
     => x.MigrationsAssembly("Remind.Data")));
 
 builder.Services.AddTransient<ISubjectService, SubjectService>();
+builder.Services.AddAutoMapper(typeof(Program));
 
 var app = builder.Build();
 
