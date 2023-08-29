@@ -29,9 +29,10 @@ namespace RemindAPi.Controllers
 
         // GET: api/Subjects/5
         [HttpGet("{id}", Name = "Get")]
-        public string Get(int id)
+        public async Task<ActionResult<Subject>> Get(Guid id)
         {
-            return "value";
+            var subject = await _service.GetById(id);
+            return Ok(subject);
         }
 
         // POST: api/Subjects
