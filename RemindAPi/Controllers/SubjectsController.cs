@@ -36,6 +36,8 @@ namespace RemindAPi.Controllers
         public async Task<ActionResult<Subject>> Get(Guid id)
         {
             var subject = await _service.GetById(id);
+            if (subject == null)
+                return NotFound();
             return Ok(subject);
         }
 
