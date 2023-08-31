@@ -1,4 +1,9 @@
+using System.Text;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using Remind.Core.Models;
 using Remind.Core.Repositories;
 using Remind.Core.Services;
 using Remind.Data;
@@ -18,8 +23,41 @@ builder.Services.AddDbContext<SubjectDbContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection"), x 
     => x.MigrationsAssembly("Remind.Data")));
 
+// Add services to the container.
+builder.Services.AddTransient<IAuthService, AuthService>();
 builder.Services.AddTransient<ISubjectService, SubjectService>();
 builder.Services.AddAutoMapper(typeof(Program));
+
+
+// For Identity  
+builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
+    .AddEntityFrameworkStores<SubjectDbContext>()
+    .AddDefaultTokenProviders();
+
+// Adding Authentication  
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+})
+// Adding Jwt Bearer  
+    .AddJwtBearer(options =>
+    {
+        options.SaveToken = true;
+        options.RequireHttpsMetadata = false;
+        options.TokenValidationParameters = new TokenValidationParameters()
+        {
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidAudience = builder.Configuration["JWTKey:ValidAudience"],
+            ValidIssuer = builder.Configuration["JWTKey:ValidIssuer"],
+            ClockSkew = TimeSpan.Zero,
+            IssuerSigningKey = new SymmetricSecurityKey(
+                Encoding.UTF8.GetBytes(builder.Configuration["JWTKey:Secret"]))
+        };
+    });
+
 
 var app = builder.Build();
 
