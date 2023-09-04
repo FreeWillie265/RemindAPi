@@ -1,6 +1,6 @@
 ﻿namespace Remind.Core.Models;
 
-public class Subject
+public class Subject : ICloneable
 {
     public Guid Id { get; set; }
     public string AgeGroup { get; set; }
@@ -12,4 +12,8 @@ public class Subject
     public string? Clerk { get; set; }
     public string? Etc { get; set; }
     public Boolean Traversed { get; set; }
+    public object Clone()
+    {
+        return this.MemberwiseClone();
+    }
 }

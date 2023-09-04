@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Remind.Core.Models;
 using Remind.Core.Services;
@@ -43,11 +44,31 @@ namespace RemindAPi.Controllers
             return Ok(subject);
         }
 
-        /*// POST: api/Subjects
-        [HttpPost]
-        public void Post([FromBody] string value)
+        // POST: api/Subjects/GetNext
+        [HttpPost("GetNext")]
+        public async Task<ActionResult> GetNext([FromBody] SubjectRequestResource resource)
         {
-        }*/
+            var subject = await _service.GetNext(resource.AgeGroup, resource.Sex);
+            if (subject == null)
+                return BadRequest("No available slots for this age group and sex combination");
+            var updates = new SaveSubjectResource()
+            {
+                AgeGroup = subject.AgeGroup,
+                BlockId = subject.BlockId,
+                BlockSize = subject.BlockSize,
+                Clerk = subject.Clerk,
+                ClinicName = subject.ClinicName,
+                District = subject.ClinicName,
+                Etc = subject.Etc,
+                Sex = subject.Sex,
+                Traversed = true
+            };
+
+            var updatedSubject = await _service.ProcessSubject(subject);
+            
+            //var updatedSubject = await _service.GetById(subject.Id);
+            return Ok(updatedSubject);
+        }
 
         // PUT: api/Subjects/5
         [HttpPut("{id}")]

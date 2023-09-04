@@ -1,4 +1,5 @@
-﻿using Remind.Core.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using Remind.Core.Models;
 using Remind.Core.Repositories;
 using Remind.Core.Services;
 
@@ -23,6 +24,14 @@ public class SubjectService : ISubjectService
         return await _unitOfWork.Subjects.GetAllAsync();
     }
 
+    public Task<Subject> GetNext(string ageGroup, string sex)
+    {
+        return _unitOfWork.Subjects.Find(
+                s => s.AgeGroup == ageGroup && s.Sex == sex && !s.Traversed)
+            .AsQueryable()
+            .FirstAsync();
+    }
+
     public async Task<Subject> Create(Subject subject)
     {
         await _unitOfWork.Subjects.AddAsync(subject);
@@ -44,6 +53,13 @@ public class SubjectService : ISubjectService
 
         await _unitOfWork.CommitAsync();
 
+    }
+
+    public async Task<Subject> ProcessSubject(Subject subject)
+    {
+        subject.Traversed = true;
+        await _unitOfWork.CommitAsync();
+        return subject;
     }
 
     public async Task DeleteSubject(Subject subject)
