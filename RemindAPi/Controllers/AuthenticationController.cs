@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using Remind.Core.Models;
 using Remind.Core.Services;
+using RemindAPi.Resources;
 
 namespace RemindAPi.Controllers;
 
@@ -10,11 +12,13 @@ public class AuthenticationController: ControllerBase
 {
     private readonly IAuthService _authService;
     private readonly ILogger<AuthenticationController> _logger;
+    private readonly IMapper _mapper;
 
-    public AuthenticationController(IAuthService authService, ILogger<AuthenticationController> logger)
+    public AuthenticationController(IAuthService authService, ILogger<AuthenticationController> logger, IMapper mapper)
     {
         _authService = authService;
         _logger = logger;
+        _mapper = mapper;
     }
     
     [HttpPost]
@@ -25,13 +29,15 @@ public class AuthenticationController: ControllerBase
         {
             if (!ModelState.IsValid)
                 return BadRequest("Invalid payload");
-            var (status, token, expiryTime) = await _authService.Login(model);
+            var (status, token, expiryTime, user) = await _authService.Login(model);
             if (status == 0)
-                return BadRequest(token);
+                return Unauthorized(token);
+            var userResource = _mapper.Map<ApplicationUser, UserResource>(user);
             return Ok(new
             {
                 token,
-                expiration = expiryTime
+                expiration = expiryTime,
+                user = userResource
             });
         }
         catch(Exception ex)

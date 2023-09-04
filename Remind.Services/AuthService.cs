@@ -50,13 +50,11 @@ public class AuthService : IAuthService
         return (1, "User created successfully!");
     }
 
-    public async Task<(int, string, DateTime?)> Login(LoginModel model)
+    public async Task<(int, string, DateTime?, ApplicationUser?)> Login(LoginModel model)
     {
         var user = await userManager.FindByNameAsync(model.Username);
-        if (user == null)
-            return (0, "Invalid username", null);
-        if (!await userManager.CheckPasswordAsync(user, model.Password))
-            return (0, "Invalid password", null);
+        if (user == null || !await userManager.CheckPasswordAsync(user, model.Password))
+            return (0, "Invalid username/password combination", null, null);
 
         var userRoles = await userManager.GetRolesAsync(user);
         var authClaims = new List<Claim>
@@ -71,7 +69,7 @@ public class AuthService : IAuthService
         }
 
         var (token, expiryTime) = GenerateToken(authClaims);
-        return (1, token, expiryTime);
+        return (1, token, expiryTime, user);
     }
 
     private (string, DateTime) GenerateToken(IEnumerable<Claim> claims)
