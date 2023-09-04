@@ -25,15 +25,15 @@ public class AuthService : IAuthService
 
     public async Task<(int, string)> Registration(RegistrationModel model, string role)
     {
-        var userExists = await userManager.FindByNameAsync(model.Username);
+        var userExists = await userManager.FindByEmailAsync(model.Email);
         if (userExists != null)
             return (0, "User already exists");
 
         ApplicationUser user = new()
         {
             Email = model.Email,
+            UserName = model.Email,
             SecurityStamp = Guid.NewGuid().ToString(),
-            UserName = model.Username,
             FirstName = model.FirstName,
             LastName = model.LastName,
         };
@@ -52,7 +52,7 @@ public class AuthService : IAuthService
 
     public async Task<(int, string, DateTime?, ApplicationUser?)> Login(LoginModel model)
     {
-        var user = await userManager.FindByNameAsync(model.Username);
+        var user = await userManager.FindByEmailAsync(model.Email);
         if (user == null || !await userManager.CheckPasswordAsync(user, model.Password))
             return (0, "Invalid username/password combination", null, null);
 
