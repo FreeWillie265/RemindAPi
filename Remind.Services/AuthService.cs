@@ -50,13 +50,13 @@ public class AuthService : IAuthService
         return (1, "User created successfully!");
     }
 
-    public async Task<(int, string)> Login(LoginModel model)
+    public async Task<(int, string, DateTime?)> Login(LoginModel model)
     {
         var user = await userManager.FindByNameAsync(model.Username);
         if (user == null)
-            return (0, "Invalid username");
+            return (0, "Invalid username", null);
         if (!await userManager.CheckPasswordAsync(user, model.Password))
-            return (0, "Invalid password");
+            return (0, "Invalid password", null);
 
         var userRoles = await userManager.GetRolesAsync(user);
         var authClaims = new List<Claim>
@@ -70,11 +70,11 @@ public class AuthService : IAuthService
             authClaims.Add(new Claim(ClaimTypes.Role, userRole));
         }
 
-        string token = GenerateToken(authClaims);
-        return (1, token);
+        var (token, expiryTime) = GenerateToken(authClaims);
+        return (1, token, expiryTime);
     }
 
-    private string GenerateToken(IEnumerable<Claim> claims)
+    private (string, DateTime) GenerateToken(IEnumerable<Claim> claims)
     {
         var authSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JWTKey:Secret"]));
         var _TokenExpiryTimeInHour = Convert.ToInt64(_configuration["JWTKey:TokenExpiryTimeInHour"]);
@@ -82,14 +82,14 @@ public class AuthService : IAuthService
         {
             Issuer = _configuration["JWTKey:ValidIssuer"],
             Audience = _configuration["JWTKey:ValidAudience"],
-            //Expires = DateTime.UtcNow.AddHours(_TokenExpiryTimeInHour),
-            Expires = DateTime.UtcNow.AddMinutes(1), // todo: add a realistic login time
+            Expires = DateTime.UtcNow.AddHours(_TokenExpiryTimeInHour),
+            //Expires = DateTime.UtcNow.AddMinutes(1), // todo: add a realistic login time
             SigningCredentials = new SigningCredentials(authSigningKey, SecurityAlgorithms.HmacSha256),
             Subject = new ClaimsIdentity(claims)
         };
 
         var tokenHandler = new JwtSecurityTokenHandler();
         var token = tokenHandler.CreateToken(tokenDescriptor);
-        return tokenHandler.WriteToken(token);
+        return (tokenHandler.WriteToken(token), token.ValidTo);
     }
 }

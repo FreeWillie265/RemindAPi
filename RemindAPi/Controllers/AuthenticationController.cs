@@ -25,10 +25,14 @@ public class AuthenticationController: ControllerBase
         {
             if (!ModelState.IsValid)
                 return BadRequest("Invalid payload");
-            var (status, message) = await _authService.Login(model);
+            var (status, token, expiryTime) = await _authService.Login(model);
             if (status == 0)
-                return BadRequest(message);
-            return Ok(message);
+                return BadRequest(token);
+            return Ok(new
+            {
+                token,
+                expiration = expiryTime
+            });
         }
         catch(Exception ex)
         {

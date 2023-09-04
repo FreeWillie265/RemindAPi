@@ -5,5 +5,5 @@ namespace Remind.Core.Services;
 public interface IAuthService
 {
     Task<(int, string)> Registration(RegistrationModel model, string role);
-    Task<(int, string)> Login(LoginModel model);
+    Task<(int, string, DateTime?)> Login(LoginModel model);
 }
