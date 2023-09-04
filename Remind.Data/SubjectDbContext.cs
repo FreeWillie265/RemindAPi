@@ -15,6 +15,7 @@ public class SubjectDbContext :  IdentityDbContext<ApplicationUser>
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        base.OnModelCreating(modelBuilder);
         modelBuilder.ApplyConfiguration(new SubjectConfiguration());
     }
 }
