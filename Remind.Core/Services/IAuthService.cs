@@ -6,4 +6,5 @@ public interface IAuthService
 {
     Task<(int, string)> Registration(RegistrationModel model, string role);
     Task<(int, string, DateTime?, ApplicationUser?)> Login(LoginModel model);
+    Task<ApplicationUser> getUser(String email);
 }

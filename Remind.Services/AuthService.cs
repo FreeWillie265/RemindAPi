@@ -72,6 +72,12 @@ public class AuthService : IAuthService
         return (1, token, expiryTime, user);
     }
 
+    public async Task<ApplicationUser> getUser(String email)
+    {
+        var user = await userManager.FindByEmailAsync(email);
+        return user;
+    }
+
     private (string, DateTime) GenerateToken(IEnumerable<Claim> claims)
     {
         var authSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JWTKey:Secret"]));

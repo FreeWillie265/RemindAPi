@@ -60,7 +60,9 @@ public class AuthenticationController: ControllerBase
             {
                 return BadRequest(message);
             }
-            return CreatedAtAction(nameof(Register), model);
+
+            var user = _mapper.Map<ApplicationUser, UserResource>(await _authService.getUser(model.Email));
+            return CreatedAtAction(nameof(Register), user);
 
         }
         catch (Exception ex)
