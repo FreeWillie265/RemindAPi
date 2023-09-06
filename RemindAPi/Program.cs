@@ -20,7 +20,7 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddDbContext<SubjectDbContext>(options =>
-    options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection"), x 
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"), x 
     => x.MigrationsAssembly("Remind.Data")));
 
 // Add services to the container.
