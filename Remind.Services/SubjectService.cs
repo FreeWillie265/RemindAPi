@@ -24,13 +24,13 @@ public class SubjectService : ISubjectService
         return await _unitOfWork.Subjects.GetAllAsync();
     }
 
-    public Task<Subject> GetNext(string ageGroup, string sex)
+    public Task<Subject?> GetNext(string ageGroup, string sex)
     {
         return _unitOfWork.Subjects.Find(
                 s => s.AgeGroup == ageGroup && s.Sex == sex && !s.Traversed)
             .AsQueryable()
             .OrderBy(x => x.BlockId)
-            .FirstAsync();
+            .FirstOrDefaultAsync();
     }
 
     public async Task<Subject> Create(Subject subject)
