@@ -29,6 +29,7 @@ public class SubjectService : ISubjectService
         return _unitOfWork.Subjects.Find(
                 s => s.AgeGroup == ageGroup && s.Sex == sex && !s.Traversed)
             .AsQueryable()
+            .OrderBy(x => x.BlockId)
             .FirstAsync();
     }
 
@@ -45,6 +46,7 @@ public class SubjectService : ISubjectService
         subjectToBeUpdated.Sex = subject.Sex;
         subjectToBeUpdated.BlockId = subject.BlockId;
         subjectToBeUpdated.BlockSize = subject.BlockSize;
+        subjectToBeUpdated.Treatment = subject.Treatment;
         subjectToBeUpdated.ClinicName = subject.ClinicName;
         subjectToBeUpdated.District = subject.District;
         subjectToBeUpdated.Clerk = subject.Clerk;

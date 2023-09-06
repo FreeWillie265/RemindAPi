@@ -51,22 +51,24 @@ namespace RemindAPi.Controllers
             var subject = await _service.GetNext(resource.AgeGroup, resource.Sex);
             if (subject == null)
                 return BadRequest("No available slots for this age group and sex combination");
-            var updates = new SaveSubjectResource()
+            var updatesResource = new SaveSubjectResource()
             {
                 AgeGroup = subject.AgeGroup,
                 BlockId = subject.BlockId,
                 BlockSize = subject.BlockSize,
-                Clerk = subject.Clerk,
-                ClinicName = subject.ClinicName,
-                District = subject.ClinicName,
-                Etc = subject.Etc,
+                Treatment = subject.Treatment,
+                Clerk = resource.Clerk,
+                ClinicName = resource.ClinicName,
+                District = resource.District,
+                Etc = resource.Etc,
                 Sex = subject.Sex,
                 Traversed = true
             };
 
-            var updatedSubject = await _service.ProcessSubject(subject);
+            var updates = _mapper.Map<SaveSubjectResource, Subject>(updatesResource);
+            await _service.UpdateSubject(subject, updates);
             
-            //var updatedSubject = await _service.GetById(subject.Id);
+            var updatedSubject = await _service.GetById(subject.Id);
             return Ok(updatedSubject);
         }
 

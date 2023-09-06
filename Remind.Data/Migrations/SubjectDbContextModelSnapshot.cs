@@ -264,6 +264,10 @@ namespace Remind.Data.Migrations
                     b.Property<bool>("Traversed")
                         .HasColumnType("bit");
 
+                    b.Property<string>("Treatment")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.ToTable("Subjects");

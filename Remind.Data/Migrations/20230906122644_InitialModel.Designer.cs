@@ -12,7 +12,7 @@ using Remind.Data;
 namespace Remind.Data.Migrations
 {
     [DbContext(typeof(SubjectDbContext))]
-    [Migration("20230906110214_InitialModel")]
+    [Migration("20230906122644_InitialModel")]
     partial class InitialModel
     {
         /// <inheritdoc />
@@ -266,6 +266,10 @@ namespace Remind.Data.Migrations
 
                     b.Property<bool>("Traversed")
                         .HasColumnType("bit");
+
+                    b.Property<string>("Treatment")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 

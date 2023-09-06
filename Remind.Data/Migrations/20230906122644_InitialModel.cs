@@ -61,6 +61,7 @@ namespace Remind.Data.Migrations
                     Sex = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     BlockId = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     BlockSize = table.Column<int>(type: "int", nullable: false),
+                    Treatment = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ClinicName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     District = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Clerk = table.Column<string>(type: "nvarchar(max)", nullable: true),
