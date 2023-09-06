@@ -10,8 +10,10 @@ public class SubjectDbContext :  IdentityDbContext<ApplicationUser>
     public DbSet<Subject> Subjects { get; set; }
 
     public SubjectDbContext(DbContextOptions<SubjectDbContext> options)
-    : base(options)
-    {}
+        : base(options)
+    {
+        Database.Migrate();
+    }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
