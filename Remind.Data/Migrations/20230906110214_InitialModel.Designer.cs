@@ -12,7 +12,7 @@ using Remind.Data;
 namespace Remind.Data.Migrations
 {
     [DbContext(typeof(SubjectDbContext))]
-    [Migration("20230906100418_InitialModel")]
+    [Migration("20230906110214_InitialModel")]
     partial class InitialModel
     {
         /// <inheritdoc />
@@ -233,7 +233,7 @@ namespace Remind.Data.Migrations
 
             modelBuilder.Entity("Remind.Core.Models.Subject", b =>
                 {
-                    b.Property<Guid>("SubjectId")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
@@ -267,7 +267,7 @@ namespace Remind.Data.Migrations
                     b.Property<bool>("Traversed")
                         .HasColumnType("bit");
 
-                    b.HasKey("SubjectId");
+                    b.HasKey("Id");
 
                     b.ToTable("Subjects");
                 });

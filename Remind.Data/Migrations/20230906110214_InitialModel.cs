@@ -56,7 +56,7 @@ namespace Remind.Data.Migrations
                 name: "Subjects",
                 columns: table => new
                 {
-                    SubjectId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     AgeGroup = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Sex = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     BlockId = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -69,7 +69,7 @@ namespace Remind.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Subjects", x => x.SubjectId);
+                    table.PrimaryKey("PK_Subjects", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
