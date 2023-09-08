@@ -23,7 +23,7 @@ public class AuthenticationController: ControllerBase
     
     [HttpPost]
     [Route("login")]
-    public async Task<IActionResult> Login(LoginModel model)
+    public async Task<IActionResult> Login([FromBody] LoginModel model)
     {
         try
         {
@@ -49,7 +49,7 @@ public class AuthenticationController: ControllerBase
 
     [HttpPost]
     [Route("registration")]
-    public async Task<IActionResult> Register(RegistrationModel model)
+    public async Task<IActionResult> Register([FromBody] RegistrationModel model)
     {
         try
         {
