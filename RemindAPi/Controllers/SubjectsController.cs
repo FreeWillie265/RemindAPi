@@ -50,7 +50,7 @@ namespace RemindAPi.Controllers
         {
             var subject = await _service.GetNext(resource.AgeGroup, resource.Sex);
             if (subject == null)
-                return BadRequest("No available slots for this (AGE GROUP - SEX) combination");
+                return NotFound("No available slots for this (AGE GROUP - SEX) combination");
             var updatesResource = new SaveSubjectResource()
             {
                 AgeGroup = subject.AgeGroup,
