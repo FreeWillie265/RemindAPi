@@ -1,0 +1,27 @@
+﻿version: '3.4'
+
+services:
+  api:
+    image: remind-api
+    restart: always
+    ports:
+      - "5252:80"
+      - "5253:443"
+    environment:
+      - ASPNETCORE_URLS=https://+;http://+
+      - ASPNETCORE_HTTPS_PORT=5253
+      - ConnectionStrings__DefaultConnection=Data Source=database;Initial Catalog=RemindDb;User Id=SA;Password=/Chimbatata265;TrustServerCertificate=true
+    volumes:
+      - "C:\\remind\\api:/data"
+  database:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    restart: always
+    volumes:
+      - "C:\\remind\\data:/var/opt/mssql/data"
+      - "C:\\remind\\log:/var/opt/mssql/log"
+      - "C:\\remind\\secrets:/var/opt/mssql/secrets"
+    ports:
+      - "3341:1433"
+    environment:
+      - ACCEPT_EULA=Y
+      - MSSQL_SA_PASSWORD=/Chimbatata265
