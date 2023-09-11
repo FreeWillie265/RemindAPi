@@ -6,12 +6,10 @@ services:
     restart: always
     ports:
       - "5252:80"
-      - "5253:443"
     depends_on:
       - database
     environment:
-      - ASPNETCORE_URLS=https://+;http://+
-      - ASPNETCORE_HTTPS_PORT=5253
+      - ASPNETCORE_URLS=http://+
       - ConnectionStrings__DefaultConnection=server=database; database=RemindDb; user=root; password=/Chimbatata265
     volumes:
       - "/remind/api:/data"
