@@ -7,6 +7,7 @@ public interface ISubjectService
     Task<Subject> GetById(Guid id);
     Task<IEnumerable<Subject>> GetAll();
     Task<Subject?> GetNext(String ageGroup, String sex);
+    Task<IEnumerable<String>> GetAgeGroups();
     Task<Subject> Create(Subject subject);
     Task UpdateSubject(Subject subjectToBeUpdated, Subject subject);
     Task<Subject> ProcessSubject(Subject subject);

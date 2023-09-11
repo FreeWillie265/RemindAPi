@@ -33,6 +33,11 @@ public class SubjectService : ISubjectService
             .FirstOrDefaultAsync();
     }
 
+    public async Task<IEnumerable<string>> GetAgeGroups()
+    {
+        return await _unitOfWork.Subjects.GetAgeGroups();
+    }
+
     public async Task<Subject> Create(Subject subject)
     {
         await _unitOfWork.Subjects.AddAsync(subject);

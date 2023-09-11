@@ -71,6 +71,14 @@ namespace RemindAPi.Controllers
             var updatedSubject = await _service.GetById(subject.Id);
             return Ok(updatedSubject);
         }
+        
+        // GET: api/Subjects/GetAgeGroups
+        [HttpGet("get-age-groups")]
+        public async Task<ActionResult> GetNext()
+        {
+            var ageGroups = await _service.GetAgeGroups();
+            return Ok(ageGroups);
+        }
 
         // PUT: api/Subjects/5
         [HttpPut("{id}")]
