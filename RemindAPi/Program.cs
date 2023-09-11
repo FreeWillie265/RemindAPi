@@ -20,8 +20,12 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddDbContext<SubjectDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"), x 
-    => x.MigrationsAssembly("Remind.Data")));
+{
+    var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+    options.UseMySql(connectionString,
+        ServerVersion.AutoDetect(connectionString), x
+            => x.MigrationsAssembly("Remind.Data"));
+});
 
 // Add services to the container.
 builder.Services.AddTransient<IAuthService, AuthService>();
