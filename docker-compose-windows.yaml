@@ -7,21 +7,20 @@ services:
     ports:
       - "5252:80"
       - "5253:443"
+    depends_on:
+      - database
     environment:
       - ASPNETCORE_URLS=https://+;http://+
       - ASPNETCORE_HTTPS_PORT=5253
-      - ConnectionStrings__DefaultConnection=Data Source=database;Initial Catalog=RemindDb;User Id=SA;Password=/Chimbatata265;TrustServerCertificate=true
+      - ConnectionStrings__DefaultConnection=server=database; database=RemindDb; user=root; password=/Chimbatata265
     volumes:
       - "C:\\remind\\api:/data"
   database:
-    image: mcr.microsoft.com/mssql/server:2022-latest
+    image: mysql
     restart: always
-    volumes:
-      - "C:\\remind\\data:/var/opt/mssql/data"
-      - "C:\\remind\\log:/var/opt/mssql/log"
-      - "C:\\remind\\secrets:/var/opt/mssql/secrets"
     ports:
-      - "3341:1433"
+      - "3306:3306"
+    volumes:
+      - "C:/nbemails/db:/var/lib/mysql"
     environment:
-      - ACCEPT_EULA=Y
-      - MSSQL_SA_PASSWORD=/Chimbatata265
+      - MYSQL_ROOT_PASSWORD=/Chimbatata265
