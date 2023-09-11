@@ -19,6 +19,6 @@ services:
     ports:
       - "3306:3306"
     volumes:
-      - "C:/nbemails/db:/var/lib/mysql"
+      - "C:/remind/db:/var/lib/mysql"
     environment:
       - MYSQL_ROOT_PASSWORD=/Chimbatata265
