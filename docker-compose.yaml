@@ -19,7 +19,7 @@ services:
     image: mysql
     restart: always
     ports:
-      - "6033:3306"
+      - "3306:3306"
     volumes:
       - "/remind/db:/var/lib/mysql"
     environment:
