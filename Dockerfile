@@ -9,6 +9,7 @@ COPY ["RemindAPi/RemindAPi.csproj", "RemindAPi/"]
 COPY ["Remind.Core/Remind.Core.csproj", "Remind.Core/"]
 COPY ["Remind.Data/Remind.Data.csproj", "Remind.Data/"]
 COPY ["Remind.Services/Remind.Services.csproj", "Remind.Services/"]
+RUN dotnet dotnet dev-certs https --trust
 RUN dotnet restore "RemindAPi/RemindAPi.csproj"
 COPY . .
 WORKDIR "/src/RemindAPi"
@@ -19,5 +20,6 @@ RUN dotnet publish "RemindAPi.csproj" -c Release -o /app/publish /p:UseAppHost=f
 
 FROM base AS final
 WORKDIR /app
+COPY --from=build /root/.dotnet/corefx/cryptography/x509stores/my/* /root/.dotnet/corefx/cryptography/x509stores/my/
 COPY --from=publish /app/publish .
 ENTRYPOINT ["dotnet", "RemindAPi.dll"]
