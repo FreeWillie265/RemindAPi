@@ -54,15 +54,16 @@ namespace RemindAPi.Controllers
             var updatesResource = new SaveSubjectResource()
             {
                 AgeGroup = subject.AgeGroup,
+                DataId = subject.DataId,
                 BlockId = subject.BlockId,
                 BlockSize = subject.BlockSize,
                 Treatment = subject.Treatment,
                 Clerk = resource.Clerk,
                 ClinicName = resource.ClinicName,
                 District = resource.District,
-                Etc = resource.Etc,
+                Note = resource.Etc,
                 Sex = subject.Sex,
-                Traversed = true
+                Assigned = true
             };
 
             var updates = _mapper.Map<SaveSubjectResource, Subject>(updatesResource);
