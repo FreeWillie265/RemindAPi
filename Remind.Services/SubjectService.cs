@@ -27,7 +27,7 @@ public class SubjectService : ISubjectService
     public Task<Subject?> GetNext(string ageGroup, string sex)
     {
         return _unitOfWork.Subjects.Find(
-                s => s.AgeGroup == ageGroup && s.Sex == sex && !s.Traversed)
+                s => s.AgeGroup == ageGroup && s.Sex == sex && !s.Assigned)
             .AsQueryable()
             .OrderBy(x => x.BlockId)
             .FirstOrDefaultAsync();
@@ -55,8 +55,8 @@ public class SubjectService : ISubjectService
         subjectToBeUpdated.ClinicName = subject.ClinicName;
         subjectToBeUpdated.District = subject.District;
         subjectToBeUpdated.Clerk = subject.Clerk;
-        subjectToBeUpdated.Etc = subject.Etc;
-        subjectToBeUpdated.Traversed = subject.Traversed;
+        subjectToBeUpdated.Note = subject.Note;
+        subjectToBeUpdated.Assigned = subject.Assigned;
 
         await _unitOfWork.CommitAsync();
 
@@ -64,7 +64,7 @@ public class SubjectService : ISubjectService
 
     public async Task<Subject> ProcessSubject(Subject subject)
     {
-        subject.Traversed = true;
+        subject.Assigned = true;
         await _unitOfWork.CommitAsync();
         return subject;
     }
