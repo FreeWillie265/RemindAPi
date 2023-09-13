@@ -67,7 +67,8 @@ var app = builder.Build();
 app.UseCors(policyBuilder   => policyBuilder
     .AllowAnyOrigin()
     .AllowAnyMethod()
-    .AllowAnyHeader());
+    .AllowAnyHeader()
+    .WithExposedHeaders("content-disposition"));
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
