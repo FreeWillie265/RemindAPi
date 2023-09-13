@@ -1,8 +1,12 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
+using CsvHelper;
+using CsvHelper.Configuration;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.HttpResults;
@@ -42,6 +46,26 @@ namespace RemindAPi.Controllers
             if (subject == null)
                 return NotFound();
             return Ok(subject);
+        }
+
+        [HttpGet("download-data")]
+        public async Task<IActionResult> DownloadSubjectData()
+        {
+            var subjects = await _service.GetAll();
+            var subjectsResource = _mapper
+                .Map<List<Subject>, List<SaveSubjectResource>>(subjects.ToList());
+            string filePath = $"remind-{DateTime.Now:dd-MM-yyy}.csv";
+            
+            using (var writer = new StreamWriter(filePath))
+            using (var csv = new CsvWriter(writer, new CsvConfiguration(CultureInfo.InvariantCulture)))
+            {
+                await csv.WriteRecordsAsync(subjectsResource);
+            }
+
+            byte[] fileContents = System.IO.File.ReadAllBytes(filePath);
+            string filename = Path.GetFileName(filePath);
+
+            return File(fileContents, "text/csv", filename);
         }
 
         // POST: api/Subjects/GetNext

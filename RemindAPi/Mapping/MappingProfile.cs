@@ -9,6 +9,7 @@ public class MappingProfile : Profile
     public MappingProfile()
     {
         CreateMap<SaveSubjectResource, Subject>();
+        CreateMap<Subject, SaveSubjectResource>();
         CreateMap<ApplicationUser, UserResource>();
     }
 }
