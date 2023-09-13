@@ -65,7 +65,9 @@ namespace RemindAPi.Controllers
             byte[] fileContents = System.IO.File.ReadAllBytes(filePath);
             string filename = Path.GetFileName(filePath);
 
-            return File(fileContents, "text/csv", filename);
+            FileContentResult fileContentResult = File(fileContents, "text/csv", filename);
+            System.IO.File.Delete(filePath);
+            return fileContentResult;
         }
 
         // POST: api/Subjects/GetNext
