@@ -52,7 +52,7 @@ public class AuthService : IAuthService
 
     public async Task<(int, string, DateTime?, ApplicationUser?)> Login(LoginModel model)
     {
-        var user = await userManager.FindByEmailAsync(model.Email);
+        var user = await userManager.FindByEmailAsync(model.Email.Trim());
         if (user == null || !await userManager.CheckPasswordAsync(user, model.Password))
             return (0, "Invalid username/password combination", null, null);
 
