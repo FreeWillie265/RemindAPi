@@ -29,7 +29,7 @@ public class SubjectService : ISubjectService
         return _unitOfWork.Subjects.Find(
                 s => s.AgeGroup == ageGroup && s.Sex == sex && !s.Assigned)
             .AsQueryable()
-            .OrderBy(x => x.BlockId)
+            .OrderBy(x => x.DataId)
             .FirstOrDefaultAsync();
     }
 
