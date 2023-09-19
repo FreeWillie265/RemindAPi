@@ -21,7 +21,8 @@ public class SubjectService : ISubjectService
 
     public async Task<IEnumerable<Subject>> GetAll()
     {
-        return await _unitOfWork.Subjects.GetAllAsync();
+        var allData = await _unitOfWork.Subjects.GetAllAsync();
+        return allData.OrderBy(x => x.DataId);
     }
 
     public Task<Subject?> GetNext(string ageGroup, string sex)

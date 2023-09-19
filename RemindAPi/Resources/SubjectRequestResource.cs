@@ -8,5 +8,5 @@ public class SubjectRequestResource
     public string? ClinicName { get; set; }
     public string? District { get; set; }
     public string? Clerk { get; set; }
-    public string? Etc { get; set; }
+    public string? Note { get; set; }
 }

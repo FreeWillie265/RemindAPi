@@ -87,7 +87,7 @@ namespace RemindAPi.Controllers
                 Clerk = resource.Clerk,
                 ClinicName = resource.ClinicName,
                 District = resource.District,
-                Note = resource.Etc,
+                Note = resource.Note,
                 Sex = subject.Sex,
                 Assigned = true
             };
@@ -101,7 +101,7 @@ namespace RemindAPi.Controllers
         
         // GET: api/Subjects/GetAgeGroups
         [HttpGet("get-age-groups")]
-        public async Task<ActionResult> GetNext()
+        public async Task<ActionResult> GetAgeGroups()
         {
             var ageGroups = await _service.GetAgeGroups();
             return Ok(ageGroups);
