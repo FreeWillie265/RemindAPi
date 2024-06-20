@@ -8,7 +8,7 @@ namespace Remind.Services;
 public class ObservationService(IUnitOfWork unitOfWork) : IObservationService
 {
 
-    public async Task<Observation> GetById(Guid id)
+    public async Task<Observation?> GetById(Guid id)
     {
         return await unitOfWork.Observations.GetByIdAsync(id);
     }
