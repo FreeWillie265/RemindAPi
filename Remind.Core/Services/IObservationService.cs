@@ -4,7 +4,7 @@ namespace Remind.Core.Services;
 
 public interface IObservationService
 {
-    Task<Observation> GetById(String id);
+    Task<Observation> GetById(Guid id);
     Task<IEnumerable<Observation>> GetAll();
     Task<Observation?> GetNext();
     Task<Observation> Create(Observation observation);
