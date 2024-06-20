@@ -10,4 +10,5 @@ public interface IObservationService
     Task<Observation> Create(Observation observation);
     Task UpdateObservation(Observation toBeUpdated, Observation observation);
     Task DeleteObservation(Observation observation);
+    Task<Observation> ProcessObservation(Observation observation);
 }

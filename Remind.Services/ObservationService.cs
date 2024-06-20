@@ -34,6 +34,13 @@ public class ObservationService(IUnitOfWork unitOfWork) : IObservationService
         return observation;
     }
 
+    public async Task<Observation> ProcessObservation(Observation observation)
+    {
+        observation.Assigned = true;
+        await unitOfWork.CommitAsync();
+        return observation;
+    }
+
     public async Task UpdateObservation(Observation toBeUpdated, Observation observation)
     {
         toBeUpdated.BlockId = observation.BlockId;
