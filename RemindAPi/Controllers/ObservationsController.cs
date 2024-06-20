@@ -21,11 +21,14 @@ namespace RemindAPi.Controllers
             return Ok(observations);
         }
 
-        // GET api/<ObservationsController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
+        // GET api/Observations/5
+        [HttpGet("{id}", Name = "GetObservation")]
+        public async Task<ActionResult<Observation>> Get(Guid id)
         {
-            return "value";
+            var observation = await service.GetById(id);
+            if (observation == null)
+                return NotFound();
+            return Ok(observation);
         }
 
         // POST api/<ObservationsController>
