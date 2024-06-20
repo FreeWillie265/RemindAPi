@@ -31,22 +31,16 @@ namespace RemindAPi.Controllers
             return Ok(observation);
         }
 
-        // POST api/<ObservationsController>
-        [HttpPost]
-        public void Post([FromBody] string value)
+        // POST api/Observations/GetNext
+        [HttpGet]
+        public async Task<ActionResult> GetNext()
         {
-        }
+            var observation = await service.GetNext();
+            if (observation == null)
+                return Ok("0");
 
-        // PUT api/<ObservationsController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        // DELETE api/<ObservationsController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
+            var processedObservation = await service.ProcessObservation(observation);
+            return Ok(processedObservation);
         }
     }
 }
