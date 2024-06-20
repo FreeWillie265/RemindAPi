@@ -2,7 +2,8 @@ namespace Remind.Core.Models;
 
 public class Observation: ICloneable
 {
-    public String Id { get; set; }
+    public Guid Id { get; set; }
+    public String DataId { get; set; }
     public String Statum { get; set; }
     public String BlockId { get; set; }
     public int BlockSize { get; set; }
