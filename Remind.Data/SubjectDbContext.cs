@@ -8,6 +8,7 @@ namespace Remind.Data;
 public class SubjectDbContext :  IdentityDbContext<ApplicationUser>
 {
     public DbSet<Subject> Subjects { get; set; }
+    public DbSet<Observation> Observations { get; set; }
 
     public SubjectDbContext(DbContextOptions<SubjectDbContext> options)
         : base(options)

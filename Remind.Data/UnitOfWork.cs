@@ -7,6 +7,7 @@ public class UnitOfWork : IUnitOfWork
 {
     private readonly SubjectDbContext _context;
     private SubjectRepository _subjectRepository;
+    private IObservationRepository _observationRepository;
 
     public UnitOfWork(SubjectDbContext context)
     {
@@ -15,6 +16,9 @@ public class UnitOfWork : IUnitOfWork
 
     public ISubjectRepository Subjects => _subjectRepository
         = _subjectRepository ?? new SubjectRepository(_context);
+
+    public IObservationRepository Observations => _observationRepository
+        = _observationRepository ?? new ObservationRepository(_context);
 
     public async Task<int> CommitAsync()
     {
