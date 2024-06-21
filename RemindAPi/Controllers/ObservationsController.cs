@@ -32,7 +32,7 @@ namespace RemindAPi.Controllers
         }
 
         // POST api/Observations/GetNext
-        [HttpGet]
+        [HttpPost("GetNext")]
         public async Task<ActionResult> GetNext()
         {
             var observation = await service.GetNext();
