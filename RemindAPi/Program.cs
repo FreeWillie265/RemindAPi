@@ -30,6 +30,7 @@ builder.Services.AddDbContext<SubjectDbContext>(options =>
 // Add services to the container.
 builder.Services.AddTransient<IAuthService, AuthService>();
 builder.Services.AddTransient<ISubjectService, SubjectService>();
+builder.Services.AddTransient<IObservationService, ObservationService>();
 builder.Services.AddAutoMapper(typeof(Program));
 
 
