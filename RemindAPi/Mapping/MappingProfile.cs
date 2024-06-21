@@ -11,5 +11,7 @@ public class MappingProfile : Profile
         CreateMap<SaveSubjectResource, Subject>();
         CreateMap<Subject, SaveSubjectResource>();
         CreateMap<ApplicationUser, UserResource>();
+
+        CreateMap<Observation, ObservationResource>();
     }
 }
