@@ -7,5 +7,6 @@ public class ObservationResource
     public String BlockId { get; set; }
     public int BlockSize { get; set; }
     public String Treatment { get; set; }
+    public string? Note { get; set; }
     public Boolean Assigned { get; set; }
 }

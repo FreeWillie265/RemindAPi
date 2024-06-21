@@ -47,6 +47,7 @@ public class ObservationService(IUnitOfWork unitOfWork) : IObservationService
         toBeUpdated.BlockSize = observation.BlockSize;
         toBeUpdated.Stratum = observation.Stratum;
         toBeUpdated.Treatment = observation.Treatment;
+        toBeUpdated.Note = observation.Note;
         toBeUpdated.Assigned = observation.Assigned;
 
         await unitOfWork.CommitAsync();
