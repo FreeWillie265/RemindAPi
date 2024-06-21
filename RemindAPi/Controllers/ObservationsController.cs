@@ -37,13 +37,13 @@ namespace RemindAPi.Controllers
 
         // POST api/Observations/GetNext
         [HttpPost("GetNext")]
-        public async Task<ActionResult> GetNext()
+        public async Task<ActionResult> GetNext([FromBody] GetObservationResource resource)
         {
             var observation = await service.GetNext();
             if (observation == null)
                 return Ok("0");
 
-            var processedObservation = await service.ProcessObservation(observation);
+            var processedObservation = await service.ProcessObservation(observation, resource.Note);
             return Ok(processedObservation);
         }
 

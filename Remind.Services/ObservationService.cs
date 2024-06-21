@@ -34,9 +34,10 @@ public class ObservationService(IUnitOfWork unitOfWork) : IObservationService
         return observation;
     }
 
-    public async Task<Observation> ProcessObservation(Observation observation)
+    public async Task<Observation> ProcessObservation(Observation observation, String note)
     {
         observation.Assigned = true;
+        observation.Note = note;
         await unitOfWork.CommitAsync();
         return observation;
     }
