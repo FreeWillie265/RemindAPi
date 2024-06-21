@@ -45,7 +45,7 @@ public class ObservationService(IUnitOfWork unitOfWork) : IObservationService
     {
         toBeUpdated.BlockId = observation.BlockId;
         toBeUpdated.BlockSize = observation.BlockSize;
-        toBeUpdated.Statum = observation.Statum;
+        toBeUpdated.Stratum = observation.Stratum;
         toBeUpdated.Treatment = observation.Treatment;
         toBeUpdated.Assigned = observation.Assigned;
 
